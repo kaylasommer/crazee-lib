@@ -20077,46 +20077,8 @@
 /* 165 */,
 /* 166 */,
 /* 167 */,
-/* 168 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-
-	// load the styles
-	var content = __webpack_require__(169);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(164)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/sass-loader/index.js!./mood-input.scss", function() {
-				var newContent = require("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/sass-loader/index.js!./mood-input.scss");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-/* 169 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(163)();
-	// imports
-
-
-	// module
-	exports.push([module.id, "\n", ""]);
-
-	// exports
-
-
-/***/ },
+/* 168 */,
+/* 169 */,
 /* 170 */,
 /* 171 */
 /***/ function(module, exports, __webpack_require__) {
@@ -20199,9 +20161,9 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _MoodInput = __webpack_require__(183);
+	var _MoodList = __webpack_require__(185);
 
-	var _MoodInput2 = _interopRequireDefault(_MoodInput);
+	var _MoodList2 = _interopRequireDefault(_MoodList);
 
 	var _WordInput = __webpack_require__(184);
 
@@ -20215,11 +20177,21 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var Madlib = _react2.default.createClass({
-	  displayName: 'Madlib',
+	var CrazeeLib = _react2.default.createClass({
+	  displayName: 'CrazeeLib',
 
+	  getInitialState: function getInitialState() {
+	    return {
+	      mood: ''
+	    };
+	  },
 	  handleSubmit: function handleSubmit() {
 	    debugger;
+	  },
+	  setActiveMood: function setActiveMood(mood) {
+	    this.setState({
+	      mood: mood
+	    });
 	  },
 	  render: function render() {
 	    return _react2.default.createElement(
@@ -20228,7 +20200,7 @@
 	      _react2.default.createElement(
 	        'form',
 	        { className: 'madlib-form', onSubmit: this.handleSubmit },
-	        _react2.default.createElement(_MoodInput2.default, null),
+	        _react2.default.createElement(_MoodList2.default, { onMoodSelected: this.setActiveMood, activeMood: this.state.mood }),
 	        _react2.default.createElement(_WordInput2.default, null),
 	        _react2.default.createElement(_SubmitButton2.default, null)
 	      )
@@ -20236,7 +20208,7 @@
 	  }
 	});
 
-	module.exports = Madlib;
+	module.exports = CrazeeLib;
 
 /***/ },
 /* 181 */
@@ -20279,34 +20251,7 @@
 
 
 /***/ },
-/* 183 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	__webpack_require__(168);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var MoodInput = _react2.default.createClass({
-	  displayName: 'MoodInput',
-
-	  render: function render() {
-	    return _react2.default.createElement(
-	      'p',
-	      null,
-	      ':)'
-	    );
-	  }
-	});
-
-	module.exports = MoodInput;
-
-/***/ },
+/* 183 */,
 /* 184 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -20333,6 +20278,185 @@
 	});
 
 	module.exports = WordInput;
+
+/***/ },
+/* 185 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _Mood = __webpack_require__(188);
+
+	var _Mood2 = _interopRequireDefault(_Mood);
+
+	__webpack_require__(186);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Moodlist = _react2.default.createClass({
+	  displayName: 'Moodlist',
+
+	  propTypes: {
+	    onMoodSelected: _react2.default.PropTypes.func.isRequired,
+	    activeMood: _react2.default.PropTypes.string
+	  },
+	  render: function render() {
+	    var _this = this;
+
+	    var moods = ['laughing', 'happy', 'sad'];
+
+	    var moodNodes = moods.map(function (mood, index) {
+	      return _react2.default.createElement(
+	        'div',
+	        { key: index },
+	        _react2.default.createElement(_Mood2.default, {
+	          moodName: mood,
+	          activeMood: _this.props.activeMood,
+	          onClick: function onClick() {
+	            _this.props.onMoodSelected(mood);
+	          }
+	        })
+	      );
+	    });
+	    return _react2.default.createElement(
+	      'div',
+	      null,
+	      _react2.default.createElement(
+	        'h3',
+	        null,
+	        'How do you feel?'
+	      ),
+	      moodNodes
+	    );
+	  }
+	});
+
+	module.exports = Moodlist;
+
+/***/ },
+/* 186 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(187);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(164)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/sass-loader/index.js!./mood-list.scss", function() {
+				var newContent = require("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/sass-loader/index.js!./mood-list.scss");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 187 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(163)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "\n", ""]);
+
+	// exports
+
+
+/***/ },
+/* 188 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	__webpack_require__(189);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Mood = _react2.default.createClass({
+	  displayName: 'Mood',
+
+	  propTypes: {
+	    moodName: _react2.default.PropTypes.string.isRequired,
+	    onClick: _react2.default.PropTypes.func,
+	    activeMood: _react2.default.PropTypes.string
+	  },
+	  render: function render() {
+	    var imageUrl = '/images/' + this.props.moodName + '.svg';
+	    return _react2.default.createElement(
+	      'label',
+	      null,
+	      _react2.default.createElement('input', {
+	        type: 'radio',
+	        name: this.props.moodName,
+	        value: this.props.moodName,
+	        checked: this.props.activeMood === this.props.moodName,
+	        onClick: this.props.onClick
+	      }),
+	      _react2.default.createElement('div', { className: 'smiley', style: { backgroundImage: 'url(' + imageUrl + ')' } })
+	    );
+	  }
+	});
+
+	module.exports = Mood;
+
+/***/ },
+/* 189 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(190);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(164)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/sass-loader/index.js!./mood.scss", function() {
+				var newContent = require("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/sass-loader/index.js!./mood.scss");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 190 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(163)();
+	// imports
+
+
+	// module
+	exports.push([module.id, ".smiley {\n  height: 60px;\n  width: 60px;\n  background-position: center;\n  background-size: contain;\n  background-repeat: no-repeat; }\n\nlabel > input {\n  visibility: hidden;\n  position: absolute; }\n\nlabel > input + div {\n  cursor: pointer;\n  border: 2px solid transparent;\n  border-radius: 50%; }\n\nlabel > input:checked + div {\n  border: 2px solid #f00; }\n", ""]);
+
+	// exports
+
 
 /***/ }
 /******/ ]);

@@ -1,0 +1,21 @@
+.smiley {
+  height: 60px;
+  width: 60px;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+label > input{
+  visibility: hidden;
+  position: absolute;
+}
+
+label > input + div{
+  cursor:pointer;
+  border:2px solid transparent;
+  border-radius: 50%;
+}
+
+label > input:checked + div{
+  border:2px solid #f00;
+}
