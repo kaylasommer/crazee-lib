@@ -19663,19 +19663,11 @@
 
 	var _Header2 = _interopRequireDefault(_Header);
 
-	var _CrazeeLib = __webpack_require__(180);
+	var _CrazeeLib = __webpack_require__(165);
 
 	var _CrazeeLib2 = _interopRequireDefault(_CrazeeLib);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	// export default class App extends React.Component {
-	//   render() {
-	//     return (
-	//       <h1>Hey ES6!</h1>
-	//     );
-	//   }
-	// };
 
 	var App = _react2.default.createClass({
 	  displayName: 'App',
@@ -20074,53 +20066,7 @@
 
 
 /***/ },
-/* 165 */,
-/* 166 */,
-/* 167 */,
-/* 168 */,
-/* 169 */,
-/* 170 */,
-/* 171 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-
-	// load the styles
-	var content = __webpack_require__(172);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(164)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/sass-loader/index.js!./word-input.scss", function() {
-				var newContent = require("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/sass-loader/index.js!./word-input.scss");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-/* 172 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(163)();
-	// imports
-
-
-	// module
-	exports.push([module.id, "", ""]);
-
-	// exports
-
-
-/***/ },
-/* 173 */
+/* 165 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -20129,69 +20075,67 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var SubmitButton = _react2.default.createClass({
-	  displayName: 'SubmitButton',
-
-	  render: function render() {
-	    return _react2.default.createElement(
-	      'button',
-	      null,
-	      'Submit'
-	    );
-	  }
-	});
-
-	module.exports = SubmitButton;
-
-/***/ },
-/* 174 */,
-/* 175 */,
-/* 176 */,
-/* 177 */,
-/* 178 */,
-/* 179 */,
-/* 180 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _MoodList = __webpack_require__(185);
+	var _MoodList = __webpack_require__(166);
 
 	var _MoodList2 = _interopRequireDefault(_MoodList);
 
-	var _WordInput = __webpack_require__(184);
+	var _WordLists = __webpack_require__(172);
 
-	var _WordInput2 = _interopRequireDefault(_WordInput);
+	var _WordLists2 = _interopRequireDefault(_WordLists);
 
-	var _SubmitButton = __webpack_require__(173);
+	var _SubmitButton = __webpack_require__(175);
 
 	var _SubmitButton2 = _interopRequireDefault(_SubmitButton);
 
-	__webpack_require__(181);
+	__webpack_require__(176);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _typeof(obj) { return obj && typeof Symbol !== "undefined" && obj.constructor === Symbol ? "symbol" : typeof obj; }
 
 	var CrazeeLib = _react2.default.createClass({
 	  displayName: 'CrazeeLib',
 
 	  getInitialState: function getInitialState() {
 	    return {
-	      mood: ''
+	      mood: '',
+	      wordListConfig: ''
 	    };
 	  },
-	  handleSubmit: function handleSubmit() {
-	    debugger;
+	  configureWordList: function configureWordList(mood) {
+	    if (!mood) {
+	      return;
+	    }
+	    var rtn;
+	    switch (mood) {
+	      case 'laughing':
+	        rtn = data[0];
+	        break;
+	      case 'happy':
+	        rtn = data[1];
+	        break;
+	      case 'sad':
+	        rtn = data[2];
+	        break;
+	      default:
+	        rtn = data[1];
+	        break;
+	    }
+	    var whatType = typeof rtn === 'undefined' ? 'undefined' : _typeof(rtn);
+	    console.log(whatType + '' + rtn);
+
+	    this.setState({
+	      wordListConfig: rtn
+	    });
+	  },
+	  handleSubmit: function handleSubmit(e) {
+	    e.preventDefault();
 	  },
 	  setActiveMood: function setActiveMood(mood) {
 	    this.setState({
 	      mood: mood
 	    });
+	    this.configureWordList(mood);
 	  },
 	  render: function render() {
 	    return _react2.default.createElement(
@@ -20201,58 +20145,19 @@
 	        'form',
 	        { className: 'madlib-form', onSubmit: this.handleSubmit },
 	        _react2.default.createElement(_MoodList2.default, { onMoodSelected: this.setActiveMood, activeMood: this.state.mood }),
-	        _react2.default.createElement(_WordInput2.default, null),
+	        _react2.default.createElement(_WordLists2.default, { wordListConfig: this.state.wordListConfig }),
 	        _react2.default.createElement(_SubmitButton2.default, null)
 	      )
 	    );
 	  }
 	});
 
+	var data = [{ mood: 'laughing', types: [{ nouns: 4 }, { adverbs: 3 }, { verbs: 2 }, { adjectives: 5 }] }, { mood: 'happy', types: [{ nouns: 4 }, { adverbs: 3 }, { verbs: 2 }, { adjectives: 5 }] }, { mood: 'sad', types: [{ nouns: 4 }, { adverbs: 3 }, { verbs: 2 }, { adjectives: 5 }] }];
+
 	module.exports = CrazeeLib;
 
 /***/ },
-/* 181 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-
-	// load the styles
-	var content = __webpack_require__(182);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(164)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/sass-loader/index.js!./crazee-lib.scss", function() {
-				var newContent = require("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/sass-loader/index.js!./crazee-lib.scss");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-/* 182 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(163)();
-	// imports
-
-
-	// module
-	exports.push([module.id, ".card {\n  border: 1px solid black;\n  height: 400px;\n  width: 50%; }\n", ""]);
-
-	// exports
-
-
-/***/ },
-/* 183 */,
-/* 184 */
+/* 166 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -20261,39 +20166,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	__webpack_require__(171);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var WordInput = _react2.default.createClass({
-	  displayName: 'WordInput',
-
-	  render: function render() {
-	    return _react2.default.createElement(
-	      'p',
-	      null,
-	      'Words'
-	    );
-	  }
-	});
-
-	module.exports = WordInput;
-
-/***/ },
-/* 185 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _Mood = __webpack_require__(188);
+	var _Mood = __webpack_require__(167);
 
 	var _Mood2 = _interopRequireDefault(_Mood);
 
-	__webpack_require__(186);
+	__webpack_require__(170);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -20338,47 +20215,7 @@
 	module.exports = Moodlist;
 
 /***/ },
-/* 186 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-
-	// load the styles
-	var content = __webpack_require__(187);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(164)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/sass-loader/index.js!./mood-list.scss", function() {
-				var newContent = require("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/sass-loader/index.js!./mood-list.scss");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-/* 187 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(163)();
-	// imports
-
-
-	// module
-	exports.push([module.id, "\n", ""]);
-
-	// exports
-
-
-/***/ },
-/* 188 */
+/* 167 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -20387,7 +20224,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	__webpack_require__(189);
+	__webpack_require__(168);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -20419,13 +20256,13 @@
 	module.exports = Mood;
 
 /***/ },
-/* 189 */
+/* 168 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(190);
+	var content = __webpack_require__(169);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(164)(content, {});
@@ -20445,7 +20282,7 @@
 	}
 
 /***/ },
-/* 190 */
+/* 169 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(163)();
@@ -20454,6 +20291,287 @@
 
 	// module
 	exports.push([module.id, ".smiley {\n  height: 60px;\n  width: 60px;\n  background-position: center;\n  background-size: contain;\n  background-repeat: no-repeat; }\n\nlabel > input {\n  visibility: hidden;\n  position: absolute; }\n\nlabel > input + div {\n  cursor: pointer;\n  border: 2px solid transparent;\n  border-radius: 50%; }\n\nlabel > input:checked + div {\n  border: 2px solid #f00; }\n", ""]);
+
+	// exports
+
+
+/***/ },
+/* 170 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(171);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(164)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/sass-loader/index.js!./mood-list.scss", function() {
+				var newContent = require("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/sass-loader/index.js!./mood-list.scss");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 171 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(163)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "\n", ""]);
+
+	// exports
+
+
+/***/ },
+/* 172 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _WordList = __webpack_require__(173);
+
+	var _WordList2 = _interopRequireDefault(_WordList);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var WordLists = _react2.default.createClass({
+	  displayName: 'WordLists',
+
+	  propTypes: {
+	    selectedMood: _react2.default.PropTypes.string
+	  },
+	  setActiveWordList: function setActiveWordList() {
+	    var wordList = getWordListTypes(this.props.selectedMood);
+	  },
+	  getWordListTypes: function getWordListTypes(mood) {
+	    if (!mood) {
+	      return;
+	    }
+	    var rtn;
+	    switch (mood) {
+	      case 'laughing':
+	        console.log(crazeeLibOptions[0].laughing);
+	        rtn = crazeeLibOptions[0].laughing;
+	        break;
+	      case 'happy':
+	        console.log('happy');
+	        rtn = crazeeLibOptions[1].happy;
+	        break;
+	      case 'sad':
+	        console.log('sad');
+	        rtn = crazeeLibOptions[2].sad;
+	        break;
+	      default:
+	        rtn = crazeeLibOptions[1].happy;
+	        break;
+	    }
+	    return rtn;
+	  },
+	  render: function render() {
+	    return _react2.default.createElement(
+	      'div',
+	      null,
+	      _react2.default.createElement(
+	        'h1',
+	        null,
+	        this.props.selectedMood
+	      ),
+	      _react2.default.createElement(
+	        'h1',
+	        null,
+	        this.props.wordListConfig
+	      ),
+	      _react2.default.createElement(_WordList2.default, null)
+	    );
+	  }
+	});
+
+	var crazeeLibOptions = [{
+	  'laughing': [{
+	    'type': 'noun',
+	    'amount': 4
+	  }, {
+	    'type': 'verb',
+	    'amount': 3
+	  }, {
+	    'type': 'adverb',
+	    'amount': 2
+	  }, {
+	    'type': 'adjective',
+	    'amount': 4
+	  }]
+	}, {
+	  'happy': [{
+	    'type': 'noun',
+	    'amount': 3
+	  }, {
+	    'type': 'verb',
+	    'amount': 1
+	  }, {
+	    'type': 'adverb',
+	    'amount': 2
+	  }, {
+	    'type': 'adjective',
+	    'amount': 4
+	  }]
+	}, {
+	  'sad': [{
+	    'type': 'noun',
+	    'amount': 3
+	  }, {
+	    'type': 'verb',
+	    'amount': 5
+	  }, {
+	    'type': 'adverb',
+	    'amount': 4
+	  }, {
+	    'type': 'adjective',
+	    'amount': 2
+	  }]
+	}];
+
+	module.exports = WordLists;
+
+/***/ },
+/* 173 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _Word = __webpack_require__(174);
+
+	var _Word2 = _interopRequireDefault(_Word);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var WordList = _react2.default.createClass({
+	  displayName: 'WordList',
+
+	  render: function render() {
+	    return _react2.default.createElement(
+	      'div',
+	      null,
+	      _react2.default.createElement(
+	        'h1',
+	        null,
+	        'Nouns'
+	      ),
+	      _react2.default.createElement(_Word2.default, null)
+	    );
+	  }
+	});
+
+	module.exports = WordList;
+
+/***/ },
+/* 174 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Word = _react2.default.createClass({
+	  displayName: 'Word',
+
+	  render: function render() {
+	    return _react2.default.createElement(
+	      'p',
+	      null,
+	      'Word'
+	    );
+	  }
+	});
+
+	module.exports = Word;
+
+/***/ },
+/* 175 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var SubmitButton = _react2.default.createClass({
+	  displayName: 'SubmitButton',
+
+	  render: function render() {
+	    return _react2.default.createElement(
+	      'button',
+	      null,
+	      'Submit'
+	    );
+	  }
+	});
+
+	module.exports = SubmitButton;
+
+/***/ },
+/* 176 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(177);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(164)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/sass-loader/index.js!./crazee-lib.scss", function() {
+				var newContent = require("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/sass-loader/index.js!./crazee-lib.scss");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 177 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(163)();
+	// imports
+
+
+	// module
+	exports.push([module.id, ".card {\n  border: 1px solid black;\n  height: 400px;\n  width: 50%; }\n", ""]);
 
 	// exports
 

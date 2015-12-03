@@ -1,0 +1,62 @@
+crazeeLibOptions = [
+  {
+    "laughing": [
+      {
+        "type": "noun",
+        "amount": 4
+      },
+      {
+        "type": "verb",
+        "amount": 3
+      },
+      {
+        "type": "adverb",
+        "amount": 2
+      },
+      {
+        "type": "adjective",
+        "amount": 4
+      }
+    ]
+  },
+  {
+    "happy": [
+      {
+        "type": "noun",
+        "amount": 3
+      },
+      {
+        "type": "verb",
+        "amount": 1
+      },
+      {
+        "type": "adverb",
+        "amount": 2
+      },
+      {
+        "type": "adjective",
+        "amount": 4
+      }
+    ]
+  },
+  {
+    "sad": [
+      {
+        "type": "noun",
+        "amount": 3
+      },
+      {
+        "type": "verb",
+        "amount": 5
+      },
+      {
+        "type": "adverb",
+        "amount": 4
+      },
+      {
+        "type": "adjective",
+        "amount": 2
+      }
+    ]
+  }
+]
