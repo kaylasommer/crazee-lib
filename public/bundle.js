@@ -20091,42 +20091,13 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	function _typeof(obj) { return obj && typeof Symbol !== "undefined" && obj.constructor === Symbol ? "symbol" : typeof obj; }
-
 	var CrazeeLib = _react2.default.createClass({
 	  displayName: 'CrazeeLib',
 
 	  getInitialState: function getInitialState() {
 	    return {
-	      mood: '',
-	      wordListConfig: ''
+	      mood: ''
 	    };
-	  },
-	  configureWordList: function configureWordList(mood) {
-	    if (!mood) {
-	      return;
-	    }
-	    var rtn;
-	    switch (mood) {
-	      case 'laughing':
-	        rtn = data[0];
-	        break;
-	      case 'happy':
-	        rtn = data[1];
-	        break;
-	      case 'sad':
-	        rtn = data[2];
-	        break;
-	      default:
-	        rtn = data[1];
-	        break;
-	    }
-	    var whatType = typeof rtn === 'undefined' ? 'undefined' : _typeof(rtn);
-	    console.log(whatType + '' + rtn);
-
-	    this.setState({
-	      wordListConfig: rtn
-	    });
 	  },
 	  handleSubmit: function handleSubmit(e) {
 	    e.preventDefault();
@@ -20135,7 +20106,6 @@
 	    this.setState({
 	      mood: mood
 	    });
-	    this.configureWordList(mood);
 	  },
 	  render: function render() {
 	    return _react2.default.createElement(
@@ -20145,14 +20115,18 @@
 	        'form',
 	        { className: 'madlib-form', onSubmit: this.handleSubmit },
 	        _react2.default.createElement(_MoodList2.default, { onMoodSelected: this.setActiveMood, activeMood: this.state.mood }),
-	        _react2.default.createElement(_WordLists2.default, { wordListConfig: this.state.wordListConfig }),
+	        _react2.default.createElement(_WordLists2.default, { wordListConfig: data[this.state.mood] }),
 	        _react2.default.createElement(_SubmitButton2.default, null)
 	      )
 	    );
 	  }
 	});
 
-	var data = [{ mood: 'laughing', types: [{ nouns: 4 }, { adverbs: 3 }, { verbs: 2 }, { adjectives: 5 }] }, { mood: 'happy', types: [{ nouns: 4 }, { adverbs: 3 }, { verbs: 2 }, { adjectives: 5 }] }, { mood: 'sad', types: [{ nouns: 4 }, { adverbs: 3 }, { verbs: 2 }, { adjectives: 5 }] }];
+	var data = {
+	  laughing: { nouns: 4, adverbs: 3, verbs: 2, adjectives: 5 },
+	  happy: { nouns: 4, adverbs: 3, verbs: 2, adjectives: 5 },
+	  sad: { nouns: 4, adverbs: 3, verbs: 2, adjectives: 5 }
+	};
 
 	module.exports = CrazeeLib;
 
@@ -20355,34 +20329,10 @@
 	  displayName: 'WordLists',
 
 	  propTypes: {
-	    selectedMood: _react2.default.PropTypes.string
+	    wordListConfig: _react2.default.PropTypes.object
 	  },
-	  setActiveWordList: function setActiveWordList() {
-	    var wordList = getWordListTypes(this.props.selectedMood);
-	  },
-	  getWordListTypes: function getWordListTypes(mood) {
-	    if (!mood) {
-	      return;
-	    }
-	    var rtn;
-	    switch (mood) {
-	      case 'laughing':
-	        console.log(crazeeLibOptions[0].laughing);
-	        rtn = crazeeLibOptions[0].laughing;
-	        break;
-	      case 'happy':
-	        console.log('happy');
-	        rtn = crazeeLibOptions[1].happy;
-	        break;
-	      case 'sad':
-	        console.log('sad');
-	        rtn = crazeeLibOptions[2].sad;
-	        break;
-	      default:
-	        rtn = crazeeLibOptions[1].happy;
-	        break;
-	    }
-	    return rtn;
+	  componentWillMount: function componentWillMount() {
+	    debugger;
 	  },
 	  render: function render() {
 	    return _react2.default.createElement(
@@ -20391,61 +20341,12 @@
 	      _react2.default.createElement(
 	        'h1',
 	        null,
-	        this.props.selectedMood
-	      ),
-	      _react2.default.createElement(
-	        'h1',
-	        null,
-	        this.props.wordListConfig
+	        JSON.stringify(this.props.wordListConfig)
 	      ),
 	      _react2.default.createElement(_WordList2.default, null)
 	    );
 	  }
 	});
-
-	var crazeeLibOptions = [{
-	  'laughing': [{
-	    'type': 'noun',
-	    'amount': 4
-	  }, {
-	    'type': 'verb',
-	    'amount': 3
-	  }, {
-	    'type': 'adverb',
-	    'amount': 2
-	  }, {
-	    'type': 'adjective',
-	    'amount': 4
-	  }]
-	}, {
-	  'happy': [{
-	    'type': 'noun',
-	    'amount': 3
-	  }, {
-	    'type': 'verb',
-	    'amount': 1
-	  }, {
-	    'type': 'adverb',
-	    'amount': 2
-	  }, {
-	    'type': 'adjective',
-	    'amount': 4
-	  }]
-	}, {
-	  'sad': [{
-	    'type': 'noun',
-	    'amount': 3
-	  }, {
-	    'type': 'verb',
-	    'amount': 5
-	  }, {
-	    'type': 'adverb',
-	    'amount': 4
-	  }, {
-	    'type': 'adjective',
-	    'amount': 2
-	  }]
-	}];
 
 	module.exports = WordLists;
 
